@@ -1,0 +1,14 @@
+{
+  "generators": {
+    "feature": {
+      "factory": "./src/generators/feature/feature",
+      "schema": "./src/generators/feature/feature.json",
+      "description": "Generates a feature inside Angular project"
+    },
+    "page": {
+      "factory": "./src/generators/page/page",
+      "schema": "./src/generators/page/page.json",
+      "description": "Generates a page component inside a feature of an Angular project"
+    }
+  }
+}

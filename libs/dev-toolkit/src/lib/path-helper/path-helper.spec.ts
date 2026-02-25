@@ -1,6 +1,13 @@
 import { addProjectConfiguration, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from 'nx/src/generators/testing-utils/create-tree-with-empty-workspace';
-import { componentContainerPath, componentPath, featurePath, projectPath, projectSrcPath } from './path-helper';
+import {
+  componentContainerPath,
+  componentPath,
+  featurePath,
+  featureRoutesPath,
+  projectPath,
+  projectSrcPath
+} from './path-helper';
 
 describe('Path Helper', () => {
   let tree: Tree;
@@ -92,5 +99,11 @@ describe('Path Helper', () => {
         expect(componentPath(tree, projectName, featureName, componentName, type)).toBe(expectedPath);
       }
     );
+  });
+
+  describe('featureRoutesPath', () => {
+    it('should return path to a feature routes file', () => {
+      expect(featureRoutesPath(tree, appName, 'welcome')).toBe(`apps/${appName}/src/welcome/welcome.routes.ts`);
+    });
   });
 });

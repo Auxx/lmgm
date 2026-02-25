@@ -43,3 +43,7 @@ export function componentPath(
     componentName
   );
 }
+
+export function featureRoutesPath(tree: Tree, projectName: string, featureName: string): string {
+  return joinPathFragments(featurePath(tree, projectName, featureName), `${featureName}.routes.ts`);
+}

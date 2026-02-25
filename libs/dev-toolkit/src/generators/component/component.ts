@@ -1,8 +1,44 @@
-import { Tree } from '@nx/devkit';
+import { AngularProjectConfiguration } from '@nx/angular/src/utils/types';
+import { generateFiles, joinPathFragments, names, readProjectConfiguration, Tree } from '@nx/devkit';
+import {
+  defaultComponentPrefix,
+  getComponentClassSuffix,
+  getComponentSuffix
+} from '../../lib/component-types/component-types';
+import { componentPath, featurePath } from '../../lib/path-helper/path-helper';
 import { ComponentGeneratorSchema } from './component-schema';
 
 export async function componentGenerator(tree: Tree, options: ComponentGeneratorSchema) {
-  console.log(options)
+  const feature = featurePath(tree, options.project, options.feature);
+  if (!tree.exists(feature) || tree.isFile(feature)) {
+    console.log(`Feature "${options.name}" does not exist.`);
+    return;
+  }
+
+  const targetPath = componentPath(tree, options.project, options.feature, options.name, options.type);
+  const artifact = names(options.name);
+
+  const className = `${artifact.className}${getComponentClassSuffix(options.type)}`;
+  const fileName = `${artifact.fileName}.${getComponentSuffix(options.type)}`;
+  const selector = createSelector(tree, options, options.name);
+
+  generateFiles(
+    tree,
+    joinPathFragments(__dirname, 'files'),
+    targetPath,
+    {
+      className,
+      fileName,
+      selector
+    }
+  );
+}
+
+function createSelector(tree: Tree, options: ComponentGeneratorSchema, name: string): string {
+  const project = readProjectConfiguration(tree, options.project);
+  const prefix = (project as AngularProjectConfiguration).prefix ?? defaultComponentPrefix;
+
+  return names(`${prefix}-${name}`).fileName;
 }
 
 export default componentGenerator;

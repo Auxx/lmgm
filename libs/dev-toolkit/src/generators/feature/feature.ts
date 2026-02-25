@@ -3,9 +3,9 @@ import { featurePath } from '../../lib/path-helper/path-helper';
 import { FeatureGeneratorSchema } from './feature-schema';
 
 export async function featureGenerator(tree: Tree, options: FeatureGeneratorSchema) {
-  const path = featurePath(tree, options.project, options.name);
+  const targetPath = featurePath(tree, options.project, options.name);
 
-  if (tree.exists(path) && !tree.isFile(path)) {
+  if (tree.exists(targetPath) && !tree.isFile(targetPath)) {
     console.log(`Feature "${options.name}" already exists.`);
     return;
   }
@@ -15,7 +15,7 @@ export async function featureGenerator(tree: Tree, options: FeatureGeneratorSche
   generateFiles(
     tree,
     joinPathFragments(__dirname, 'files'),
-    path,
+    targetPath,
     { fileName }
   );
 }

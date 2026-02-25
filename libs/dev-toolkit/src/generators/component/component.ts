@@ -8,10 +8,15 @@ import {
 import { componentPath, featurePath } from '../../lib/path-helper/path-helper';
 import { ComponentGeneratorSchema } from './component-schema';
 
+const lastRun: { success: boolean; } = {
+  success: true
+};
+
 export async function componentGenerator(tree: Tree, options: ComponentGeneratorSchema) {
   const feature = featurePath(tree, options.project, options.feature);
   if (!tree.exists(feature) || tree.isFile(feature)) {
     console.log(`Feature "${options.name}" does not exist.`);
+    lastRun.success = false;
     return;
   }
 
@@ -32,6 +37,8 @@ export async function componentGenerator(tree: Tree, options: ComponentGenerator
       selector
     }
   );
+
+  lastRun.success = true;
 }
 
 function createSelector(tree: Tree, options: ComponentGeneratorSchema, name: string): string {
@@ -39,6 +46,10 @@ function createSelector(tree: Tree, options: ComponentGeneratorSchema, name: str
   const prefix = (project as AngularProjectConfiguration).prefix ?? defaultComponentPrefix;
 
   return names(`${prefix}-${name}`).fileName;
+}
+
+export function getLastRun(): { success: boolean; } {
+  return lastRun;
 }
 
 export default componentGenerator;

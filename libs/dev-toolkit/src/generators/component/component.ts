@@ -8,8 +8,18 @@ import {
 import { componentPath, featurePath } from '../../lib/path-helper/path-helper';
 import { ComponentGeneratorSchema } from './component-schema';
 
-const lastRun: { success: boolean; } = {
-  success: true
+interface LastRun {
+  success: boolean;
+  className: string;
+  fileName: string;
+  selector: string;
+}
+
+const lastRun: LastRun = {
+  success: true,
+  className: '',
+  fileName: '',
+  selector: ''
 };
 
 export async function componentGenerator(tree: Tree, options: ComponentGeneratorSchema) {
@@ -39,6 +49,9 @@ export async function componentGenerator(tree: Tree, options: ComponentGenerator
   );
 
   lastRun.success = true;
+  lastRun.className = className;
+  lastRun.fileName = fileName;
+  lastRun.selector = selector;
 }
 
 function createSelector(tree: Tree, options: ComponentGeneratorSchema, name: string): string {
@@ -48,7 +61,8 @@ function createSelector(tree: Tree, options: ComponentGeneratorSchema, name: str
   return names(`${prefix}-${name}`).fileName;
 }
 
-export function getLastRun(): { success: boolean; } {
+export function getLastRun(): LastRun {
+  console.log('xxxxxx');
   return lastRun;
 }
 

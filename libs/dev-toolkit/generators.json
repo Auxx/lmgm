@@ -5,6 +5,11 @@
       "schema": "./src/generators/feature/feature.json",
       "description": "Generates a feature inside Angular project"
     },
+    "component": {
+      "factory": "./src/generators/component/component",
+      "schema": "./src/generators/component/component.json",
+      "description": "Generates a component inside a feature of an Angular project"
+    },
     "page": {
       "factory": "./src/generators/page/page",
       "schema": "./src/generators/page/page.json",

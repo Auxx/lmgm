@@ -2,7 +2,7 @@ import { addProjectConfiguration, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from 'nx/src/generators/testing-utils/create-tree-with-empty-workspace';
 import { featureGenerator } from './feature';
 
-describe('featureGenerator', () => {
+describe('Feature Generator', () => {
   let tree: Tree;
 
   const appName = 'my-app';

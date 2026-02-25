@@ -1,4 +1,5 @@
 import { joinPathFragments, readProjectConfiguration, Tree } from '@nx/devkit';
+import { ComponentType, getComponentFolder } from '../component-types/component-types';
 
 export function projectPath(tree: Tree, projectName: string): string {
   return readProjectConfiguration(tree, projectName).root;
@@ -18,10 +19,27 @@ export function featurePath(tree: Tree, projectName: string, featureName: string
   return joinPathFragments(projectSrcPath(tree, projectName), featureName);
 }
 
-export function pagePath(tree: Tree, projectName: string, featureName: string, pageName: string): string {
-  return joinPathFragments(featurePath(tree, projectName, featureName), 'pages', pageName);
+export function componentContainerPath(
+  tree: Tree,
+  projectName: string,
+  featureName: string,
+  type: ComponentType = 'component'
+): string {
+  return joinPathFragments(
+    featurePath(tree, projectName, featureName),
+    getComponentFolder(type)
+  );
 }
 
-export function componentPath(tree: Tree, projectName: string, featureName: string, componentName: string): string {
-  return joinPathFragments(featurePath(tree, projectName, featureName), 'components', componentName);
+export function componentPath(
+  tree: Tree,
+  projectName: string,
+  featureName: string,
+  componentName: string,
+  type: ComponentType = 'component'
+): string {
+  return joinPathFragments(
+    componentContainerPath(tree, projectName, featureName, type),
+    componentName
+  );
 }

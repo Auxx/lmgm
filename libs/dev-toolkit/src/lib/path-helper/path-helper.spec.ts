@@ -1,6 +1,6 @@
 import { addProjectConfiguration, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from 'nx/src/generators/testing-utils/create-tree-with-empty-workspace';
-import { componentPath, featurePath, pagePath, projectPath, projectSrcPath } from './path-helper';
+import { componentContainerPath, componentPath, featurePath, projectPath, projectSrcPath } from './path-helper';
 
 describe('Path Helper', () => {
   let tree: Tree;
@@ -70,25 +70,27 @@ describe('Path Helper', () => {
     );
   });
 
-  describe('pagePath', () => {
+  describe('componentContainerPath', () => {
     it.each`
-    projectName | featureName  | pageName             | expectedPath
-    ${appName}  | ${'welcome'} | ${'dashboard'}       | ${`apps/${appName}/src/welcome/pages/dashboard`}
-    ${appName}  | ${'auth'}    | ${'login'}           | ${`apps/${appName}/src/auth/pages/login`}
-    ${appName}  | ${'auth'}    | ${'forgot-password'} | ${`apps/${appName}/src/auth/pages/forgot-password`}
-    `('should return path to page $pageName', ({ projectName, featureName, pageName, expectedPath }) => {
-      expect(pagePath(tree, projectName, featureName, pageName)).toBe(expectedPath);
+    projectName | featureName  | type           | expectedPath
+    ${appName}  | ${'welcome'} | ${'component'} | ${`apps/${appName}/src/welcome/components`}
+    ${appName}  | ${'auth'}    | ${'page'}      | ${`apps/${appName}/src/auth/pages`}
+    `('should return path to a component container $type', ({ projectName, featureName, type, expectedPath }) => {
+      expect(componentContainerPath(tree, projectName, featureName, type)).toBe(expectedPath);
     });
   });
 
   describe('componentPath', () => {
     it.each`
-    projectName | featureName  | componentName  | expectedPath
-    ${appName}  | ${'welcome'} | ${'user-info'} | ${`apps/${appName}/src/welcome/components/user-info`}
-    ${appName}  | ${'auth'}    | ${'reset'}     | ${`apps/${appName}/src/auth/components/reset`}
-    ${appName}  | ${'auth'}    | ${'back'}      | ${`apps/${appName}/src/auth/components/back`}
-    `('should return path to component $componentName', ({ projectName, featureName, componentName, expectedPath }) => {
-      expect(componentPath(tree, projectName, featureName, componentName)).toBe(expectedPath);
-    });
+    projectName | featureName  | componentName  | type | expectedPath
+    ${appName}  | ${'welcome'} | ${'user-info'} | ${'component'} | ${`apps/${appName}/src/welcome/components/user-info`}
+    ${appName}  | ${'auth'}    | ${'reset'}     | ${'component'} | ${`apps/${appName}/src/auth/components/reset`}
+    ${appName}  | ${'auth'}    | ${'back'}      | ${'page'} | ${`apps/${appName}/src/auth/pages/back`}
+    `(
+      'should return path to component $componentName of type $type',
+      ({ projectName, featureName, componentName, type, expectedPath }) => {
+        expect(componentPath(tree, projectName, featureName, componentName, type)).toBe(expectedPath);
+      }
+    );
   });
 });

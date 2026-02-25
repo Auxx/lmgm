@@ -19,3 +19,5 @@ export async function featureGenerator(tree: Tree, options: FeatureGeneratorSche
     { fileName }
   );
 }
+
+export default featureGenerator;

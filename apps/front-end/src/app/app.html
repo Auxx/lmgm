@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<mat-toolbar class="top-toolbar">
+  <button matButton [matMenuTriggerFor]="fileMenu">File</button>
+</mat-toolbar>
+
+<div class="page-content">
+  <router-outlet></router-outlet>
+</div>
+
+<mat-menu #fileMenu="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu>
+
+<mat-toolbar class="bottom-toolbar">
+  <button matButton>Hello!</button>
+</mat-toolbar>

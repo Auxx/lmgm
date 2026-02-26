@@ -62,7 +62,6 @@ function createSelector(tree: Tree, options: ComponentGeneratorSchema, name: str
 }
 
 export function getLastRun(): LastRun {
-  console.log('xxxxxx');
   return lastRun;
 }
 

@@ -29,6 +29,8 @@ export async function pageGenerator(tree: Tree, options: PageGeneratorSchema) {
       )
     );
 
+    console.log(state.toString());
+
     state.save();
   }
 }

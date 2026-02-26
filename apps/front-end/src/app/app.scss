@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.top-toolbar {
+  flex-grow: 0;
+
+  @include mat.toolbar-overrides((
+          container-background-color: var(--mat-sys-surface-container-low),
+          standard-height: 48px
+  ));
+}
+
+.bottom-toolbar {
+  flex-grow: 0;
+
+  @include mat.toolbar-overrides((
+          container-background-color: var(--mat-sys-surface-container-low),
+          standard-height: 48px
+  ));
+}

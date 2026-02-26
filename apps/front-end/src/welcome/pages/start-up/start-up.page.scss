@@ -1,0 +1,17 @@
+@use '../../../styles/vars';
+
+:host {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: vars.$dim-double;
+}
+
+mat-card {
+  width: 300px;
+
+  mat-card-content {
+    height: 130px;
+  }
+}

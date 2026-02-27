@@ -30,10 +30,19 @@ export class StartUpPage {
         try {
           const location = await this.projectManagerService.create(result.projectName, result.location);
           console.log('New project location', location);
+          // TODO Open project
         } catch (error) {
           const message = error instanceof Error ? error.message : 'Unknown error happened.';
           this.snackBar.open(message, 'OK');
         }
       });
+  };
+
+  readonly onOpenProject = async () => {
+    const result = await this.projectManagerService.openWithDialog();
+
+    if (result !== null) {
+      // TODO Navigate to project page
+    }
   };
 }

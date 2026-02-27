@@ -5,6 +5,7 @@ export interface Desktop {
   platform: string;
   isPackaged: () => Promise<boolean>;
   showOpenFolderDialog: () => Promise<OpenFolderResult>;
+  showOpenProjectDialog: () => Promise<ApiResult<string>>;
   mkDir: (path: string, name: string) => Promise<ApiResult<string>>;
   writeJson: <T>(path: string, data: T) => Promise<ApiResult<undefined>>;
   pathJoin: (...paths: string[]) => Promise<string>;

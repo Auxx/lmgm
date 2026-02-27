@@ -1,4 +1,4 @@
-import { ApiResult, OpenFolderResult } from '@lmgm/internal-api';
+import { ApiResult, OpenFolderResult, projectDescriptorExt } from '@lmgm/internal-api';
 import { app, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'path';
@@ -17,6 +17,22 @@ ipcMain.handle('isPackaged', () => App.application.isPackaged);
 
 ipcMain.handle('showOpenFolderDialog', async (): Promise<OpenFolderResult> => {
   const result = await dialog.showOpenDialog({ properties: [ 'openDirectory' ] });
+
+  if (!result.canceled && result.filePaths.length > 0) {
+    return {
+      success: true,
+      data: result.filePaths[0]
+    };
+  }
+
+  return { success: false };
+});
+
+ipcMain.handle('showOpenProjectDialog', async (): Promise<ApiResult<string>> => {
+  const result = await dialog.showOpenDialog({
+    properties: [ 'openFile' ],
+    filters: [ { name: 'LMGM Project', extensions: [ projectDescriptorExt ] } ]
+  });
 
   if (!result.canceled && result.filePaths.length > 0) {
     return {

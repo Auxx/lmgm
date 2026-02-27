@@ -11,7 +11,10 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button matButton (click)="onCreateProject()">CREATE</button>
+    <button matButton
+            (click)="onCreateProject()">
+      CREATE
+    </button>
   </mat-card-actions>
 </mat-card>
 
@@ -27,7 +30,10 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button matButton>OPEN</button>
+    <button matButton
+            (click)="onOpenProject()">
+      OPEN
+    </button>
   </mat-card-actions>
 </mat-card>
 
@@ -37,18 +43,18 @@
   </mat-card-header>
 
   <mat-card-content>
-<!--    <p>No recent projects yet...</p>-->
-    <ul>
-      <li>Project 1</li>
-      <li>Project 2</li>
-      <li>Project 3</li>
-      <li>Project 4</li>
-      <li>Project 5</li>
-    </ul>
+    <p>No recent projects yet...</p>
+    <!--    <ul>-->
+    <!--      <li>Project 1</li>-->
+    <!--      <li>Project 2</li>-->
+    <!--      <li>Project 3</li>-->
+    <!--      <li>Project 4</li>-->
+    <!--      <li>Project 5</li>-->
+    <!--    </ul>-->
   </mat-card-content>
 
   <mat-card-actions>
-    <button matButton>CLEAR RECENT</button>
+    <button matButton disabled>CLEAR RECENT</button>
   </mat-card-actions>
 </mat-card>
 

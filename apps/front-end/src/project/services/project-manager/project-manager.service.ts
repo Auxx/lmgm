@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
+import { currentProjectVersion, ProjectDescriptor, projectDescriptorFileName } from '@lmgm/internal-api';
 import { InternalApiService } from '../../../ipc/internal-api/internal-api.service';
-import { currentProjectVersion, ProjectDescriptor, projectDescriptorFileName } from './project-manager.types';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectManagerService {
@@ -26,5 +26,14 @@ export class ProjectManagerService {
     }
 
     return descriptorPath;
+  };
+
+  readonly openWithDialog = async (): Promise<string | null> => {
+    const result = await this.internalApiService.showOpenProjectDialog();
+    return result.success ? result.data : null;
+  };
+
+  readonly open = async (path: string) => {
+    console.log('open project path', path);
   };
 }

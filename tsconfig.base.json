@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lmgm/dev-toolkit": ["libs/dev-toolkit/src/index.ts"]
+      "@lmgm/dev-toolkit": ["libs/dev-toolkit/src/index.ts"],
+      "@lmgm/internal-api": ["libs/internal-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -27,7 +27,7 @@
     },
     "type": {
       "type": "string",
-      "enum": ["component", "page"],
+      "enum": ["component", "page", "dialog"],
       "description": "Type of the component to generate",
       "default": "component",
       "x-prompt": "What type of component would you like to generate?"

@@ -1,8 +1,8 @@
-import { BrowserWindow, shell, screen } from 'electron';
-import { rendererAppName, rendererAppPort } from './constants';
-import { environment } from '../environments/environment';
+import { BrowserWindow, screen, shell } from 'electron';
 import { join } from 'path';
 import { format } from 'url';
+import { environment } from '../environments/environment';
+import { rendererAppName, rendererAppPort } from './constants';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -13,8 +13,7 @@ export default class App {
 
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
-    const getFromEnvironment = () =>
-      parseInt(process.env.ELECTRON_IS_DEV!, 10) === 1;
+    const getFromEnvironment = () => parseInt(process.env.ELECTRON_IS_DEV!, 10) === 1;
 
     return isEnvironmentSet ? getFromEnvironment() : !environment.production;
   }
@@ -73,8 +72,8 @@ export default class App {
       webPreferences: {
         contextIsolation: true,
         backgroundThrottling: false,
-        preload: join(__dirname, 'main.preload.js'),
-      },
+        preload: join(__dirname, 'main.preload.js')
+      }
     });
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
@@ -112,8 +111,8 @@ export default class App {
         format({
           pathname: join(__dirname, '..', rendererAppName, 'index.html'),
           protocol: 'file:',
-          slashes: true,
-        }),
+          slashes: true
+        })
       );
     }
   }

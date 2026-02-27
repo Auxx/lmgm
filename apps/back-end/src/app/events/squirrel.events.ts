@@ -2,9 +2,9 @@
  * This module is responsible on handling all the setup events that is submitted by squirrel.
  */
 
-import { app } from 'electron';
 import { spawn } from 'child_process';
-import { resolve, join, basename } from 'path';
+import { app } from 'electron';
+import { basename, join, resolve } from 'path';
 import { environment } from '../../environments/environment';
 
 export default class SquirrelEvents {
@@ -14,14 +14,14 @@ export default class SquirrelEvents {
   private static appFolder = resolve(process.execPath, '..');
   private static appRootFolder = resolve(SquirrelEvents.appFolder, '..');
   private static updateExe = resolve(
-    join(SquirrelEvents.appRootFolder, 'Update.exe'),
+    join(SquirrelEvents.appRootFolder, 'Update.exe')
   );
   private static exeName = resolve(
     join(
       SquirrelEvents.appRootFolder,
       'app-' + environment.version,
-      basename(process.execPath),
-    ),
+      basename(process.execPath)
+    )
   );
 
   static handleEvents(): boolean {
@@ -33,13 +33,13 @@ export default class SquirrelEvents {
       case '--squirrel-install':
       case '--squirrel-updated':
         // Install desktop and start menu shortcuts
-        SquirrelEvents.update(['--createShortcut', SquirrelEvents.exeName]);
+        SquirrelEvents.update([ '--createShortcut', SquirrelEvents.exeName ]);
 
         return true;
 
       case '--squirrel-uninstall':
         // Remove desktop and start menu shortcuts
-        SquirrelEvents.update(['--removeShortcut', SquirrelEvents.exeName]);
+        SquirrelEvents.update([ '--removeShortcut', SquirrelEvents.exeName ]);
 
         return true;
 
@@ -64,7 +64,7 @@ export default class SquirrelEvents {
     try {
       spawn(SquirrelEvents.updateExe, args, { detached: true }).on(
         'close',
-        () => setTimeout(app.quit, 1000),
+        () => setTimeout(app.quit, 1000)
       );
     } catch (error) {
       setTimeout(app.quit, 1000);

@@ -1,5 +1,5 @@
-import SquirrelEvents from './app/events/squirrel.events';
 import ElectronEvents from './app/events/electron.events';
+import SquirrelEvents from './app/events/squirrel.events';
 // import UpdateEvents from './app/events/update.events';
 import { app, BrowserWindow } from 'electron';
 import App from './app/app';

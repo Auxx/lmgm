@@ -4,15 +4,20 @@ export interface Desktop {
   getAppVersion: () => Promise<string>;
   platform: string;
   isPackaged: () => Promise<boolean>;
+  showOpenFolderDialog: () => Promise<OpenFolderResult>;
 }
 
-export interface Success<T> {
+export interface ApiSuccess<T> {
   success: true;
   data: T;
 }
 
-export interface Failure {
+export interface ApiFailure {
   success: false;
 }
+
+export type ApiResult<T> = ApiSuccess<T> | ApiFailure;
+
+export type OpenFolderResult = ApiResult<string>;
 
 export const appProtocol = 'atom';

@@ -1,0 +1,52 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <h2 mat-dialog-title>Create new gallery project</h2>
+
+  <mat-dialog-content>
+    <div class="wrapper">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Project name</mat-label>
+        <input matInput [formControl]="projectName"/>
+
+        @if (projectName.hasError('pattern')) {
+          <mat-error>
+            Project name contains invalid characters.
+            Can only contain latin characters, digits, white space, dot, dash and underscore.
+          </mat-error>
+        }
+
+        @if (projectName.hasError('required')) {
+          <mat-error>Please provide a project name.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Project location</mat-label>
+        <input matInput [formControl]="location" readonly/>
+        <button matIconButton
+                matSuffix
+                type="button"
+                (click)="onBrowse()">
+          <mat-icon>folder_open</mat-icon>
+        </button>
+      </mat-form-field>
+
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button matButton
+            type="button"
+            [mat-dialog-close]="undefined">
+      Cancel
+    </button>
+
+    <button matButton
+            type="submit"
+            [disabled]="form.invalid">
+      Create
+    </button>
+  </mat-dialog-actions>
+
+</form>

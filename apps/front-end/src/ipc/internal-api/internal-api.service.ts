@@ -8,4 +8,6 @@ export class InternalApiService {
   platform = () => window.desktop.platform;
 
   isPackaged = async () => window.desktop.isPackaged();
+
+  showOpenFolderDialog = async () => window.desktop.showOpenFolderDialog();
 }

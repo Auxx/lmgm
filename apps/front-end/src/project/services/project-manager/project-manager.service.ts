@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { InternalApiService } from '../../../ipc/internal-api/internal-api.service';
-import { currentProjectVersion, ProjectDescriptor } from './project-manager.types';
+import { currentProjectVersion, ProjectDescriptor, projectDescriptorFileName } from './project-manager.types';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectManagerService {
@@ -18,8 +18,13 @@ export class ProjectManagerService {
       name
     };
 
-    console.log(descriptor);
+    const descriptorPath = await this.internalApiService.pathJoin(mkDirResult.data, projectDescriptorFileName);
+    const jsonResult = await this.internalApiService.writeJson(descriptorPath, descriptor);
 
-    return mkDirResult.data;
+    if (!jsonResult.success) {
+      throw new Error(`Failed to write project descriptor to "${descriptorPath}".`);
+    }
+
+    return descriptorPath;
   };
 }

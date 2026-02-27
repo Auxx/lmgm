@@ -7,6 +7,7 @@ export interface Desktop {
   showOpenFolderDialog: () => Promise<OpenFolderResult>;
   mkDir: (path: string, name: string) => Promise<ApiResult<string>>;
   writeJson: <T>(path: string, data: T) => Promise<ApiResult<undefined>>;
+  pathJoin: (...paths: string[]) => Promise<string>;
 }
 
 export interface ApiSuccess<T> {

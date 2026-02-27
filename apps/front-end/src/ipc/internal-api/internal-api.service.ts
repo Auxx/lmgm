@@ -12,4 +12,8 @@ export class InternalApiService {
   showOpenFolderDialog = async () => window.desktop.showOpenFolderDialog();
 
   mkDir = async (path: string, name: string) => window.desktop.mkDir(path, name);
+
+  writeJson = async <T>(path: string, data: T) => window.desktop.writeJson(path, data);
+
+  pathJoin = async (...paths: string[]) => window.desktop.pathJoin(...paths);
 }

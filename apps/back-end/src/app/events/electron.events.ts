@@ -1,6 +1,6 @@
 import { ApiResult, OpenFolderResult } from '@lmgm/internal-api';
 import { app, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'path';
 import { environment } from '../../environments/environment';
 import App from '../app';
@@ -39,10 +39,15 @@ ipcMain.handle('mkDir', async (_: IpcMainInvokeEvent, path: string, name: string
 });
 
 ipcMain.handle('writeJson', async <T>(_: IpcMainInvokeEvent, path: string, data: T): Promise<ApiResult<undefined>> => {
-  console.log(path, data);
-
-  return { success: false };
+  try {
+    await writeFile(path, JSON.stringify(data, null, 2), 'utf-8');
+    return { success: true, data: undefined };
+  } catch (_) {
+    return { success: false };
+  }
 });
+
+ipcMain.handle('pathJoin', async (_: IpcMainInvokeEvent, ...paths: string[]) => join(...paths));
 
 ipcMain.on('quit', (event, code) => {
   app.exit(code);

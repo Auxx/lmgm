@@ -7,7 +7,8 @@ const api: Desktop = {
   isPackaged: () => ipcRenderer.invoke('isPackaged'),
   showOpenFolderDialog: () => ipcRenderer.invoke('showOpenFolderDialog'),
   mkDir: (path, name) => ipcRenderer.invoke('mkDir', path, name),
-  writeJson: (path, data) => ipcRenderer.invoke('writeJson', path, data)
+  writeJson: (path, data) => ipcRenderer.invoke('writeJson', path, data),
+  pathJoin: (...paths) => ipcRenderer.invoke('pathJoin', ...paths)
 };
 
 contextBridge.exposeInMainWorld('desktop', api);

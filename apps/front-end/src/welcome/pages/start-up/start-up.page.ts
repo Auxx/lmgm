@@ -3,6 +3,7 @@ import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { ProjectManagerService } from '../../../project/services/project-manager/project-manager.service';
 import { CreateProjectDialog } from '../../dialogs/create-project/create-project.dialog';
 
@@ -23,6 +24,8 @@ export class StartUpPage {
 
   private readonly projectManagerService = inject(ProjectManagerService);
 
+  private readonly router = inject(Router);
+
   readonly onCreateProject = () => {
     CreateProjectDialog
       .open(this.dialog)
@@ -42,7 +45,7 @@ export class StartUpPage {
     const result = await this.projectManagerService.openWithDialog();
 
     if (result !== null) {
-      // TODO Navigate to project page
+      await this.router.navigate([ 'project', 'view', result ]);
     }
   };
 }

@@ -1,4 +1,4 @@
 $dim-base: 8px;
-$dim-half: $dim-base / 2;
+$dim-half: calc($dim-base / 2);
 $dim-double: $dim-base * 2;
 $dim-triple: $dim-base * 3;

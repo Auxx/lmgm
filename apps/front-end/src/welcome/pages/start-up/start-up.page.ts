@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProjectManagerService } from '../../../project/services/project-manager/project-manager.service';
 import { CreateProjectDialog } from '../../dialogs/create-project/create-project.dialog';
 
 @Component({
@@ -15,11 +17,23 @@ import { CreateProjectDialog } from '../../dialogs/create-project/create-project
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartUpPage {
-  readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog);
+
+  private readonly snackBar = inject(MatSnackBar);
+
+  private readonly projectManagerService = inject(ProjectManagerService);
 
   readonly onCreateProject = () => {
     CreateProjectDialog
       .open(this.dialog)
-      .subscribe(console.log);
+      .subscribe(async result => {
+        try {
+          const location = await this.projectManagerService.create(result.projectName, result.location);
+          console.log('New project location', location);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : 'Unknown error happened.';
+          this.snackBar.open(message, 'OK');
+        }
+      });
   };
 }

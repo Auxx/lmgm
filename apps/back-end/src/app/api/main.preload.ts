@@ -5,7 +5,9 @@ const api: Desktop = {
   getAppVersion: () => ipcRenderer.invoke('get-app-version'),
   platform: process.platform,
   isPackaged: () => ipcRenderer.invoke('isPackaged'),
-  showOpenFolderDialog: () => ipcRenderer.invoke('showOpenFolderDialog')
+  showOpenFolderDialog: () => ipcRenderer.invoke('showOpenFolderDialog'),
+  mkDir: (path, name) => ipcRenderer.invoke('mkDir', path, name),
+  writeJson: (path, data) => ipcRenderer.invoke('writeJson', path, data)
 };
 
 contextBridge.exposeInMainWorld('desktop', api);

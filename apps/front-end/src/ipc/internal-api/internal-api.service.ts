@@ -10,4 +10,6 @@ export class InternalApiService {
   isPackaged = async () => window.desktop.isPackaged();
 
   showOpenFolderDialog = async () => window.desktop.showOpenFolderDialog();
+
+  mkDir = async (path: string, name: string) => window.desktop.mkDir(path, name);
 }

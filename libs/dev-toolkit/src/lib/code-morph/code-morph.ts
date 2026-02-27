@@ -116,6 +116,7 @@ export function morph<T, A, B, C, D, E, F, G, H, I>(
 export function morph<T>(
   tree: Tree,
   filePath: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...operators: CodeMorphOperator<any, any>[]
 ): CodeMorphResult<unknown> {
   const fileName = path.basename(filePath);

@@ -13,14 +13,14 @@ import { InternalApiService } from '../ipc/internal-api/internal-api.service';
   styleUrl: './app.scss'
 })
 export class App {
-  title = inject(Title);
+  readonly title = inject(Title);
 
-  internalApiService = inject(InternalApiService);
+  readonly internalApiService = inject(InternalApiService);
 
   constructor() {
     this.setAppTitle().then();
   }
 
-  setAppTitle = async () =>
+  readonly setAppTitle = async () =>
     this.title.setTitle(`Light Matter Gallery Manager v${await this.internalApiService.getAppVersion()}`);
 }

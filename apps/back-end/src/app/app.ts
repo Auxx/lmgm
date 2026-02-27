@@ -13,7 +13,7 @@ export default class App {
 
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
-    const getFromEnvironment = () => parseInt(process.env.ELECTRON_IS_DEV!, 10) === 1;
+    const getFromEnvironment = () => parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
 
     return isEnvironmentSet ? getFromEnvironment() : !environment.production;
   }
@@ -24,7 +24,6 @@ export default class App {
     }
   }
 
-  // @ts-ignore - boilerplate method. Can be safely deleted if not needed
   private static onClose() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
@@ -32,12 +31,11 @@ export default class App {
     App.mainWindow = null;
   }
 
-  // @ts-ignore - boilerplate method. Can be safely deleted if not needed
-  private static onRedirect(event: any, url: string) {
-    if (url !== App.mainWindow!.webContents.getURL()) {
+  private static onRedirect(event: Event, url: string) {
+    if (url !== App.mainWindow.webContents.getURL()) {
       // this is a normal external redirect, open it in a new browser window
       event.preventDefault();
-      shell.openExternal(url);
+      shell.openExternal(url).then();
     }
   }
 
@@ -80,7 +78,7 @@ export default class App {
 
     // if main window is ready to show, close the splash window and show the main window
     App.mainWindow.once('ready-to-show', () => {
-      App.mainWindow!.show();
+      App.mainWindow.show();
 
       if (!App.application.isPackaged) {
         App.mainWindow.webContents.openDevTools();
@@ -105,15 +103,15 @@ export default class App {
   private static loadMainWindow() {
     // load the index.html of the app.
     if (!App.application.isPackaged) {
-      App.mainWindow!.loadURL(`http://localhost:${rendererAppPort}`);
+      App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`).then();
     } else {
-      App.mainWindow!.loadURL(
+      App.mainWindow.loadURL(
         format({
           pathname: join(__dirname, '..', rendererAppName, 'index.html'),
           protocol: 'file:',
           slashes: true
         })
-      );
+      ).then();
     }
   }
 

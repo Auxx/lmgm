@@ -181,11 +181,8 @@ export function modifyVariable(mod: (decl: VariableDeclaration) => void) {
 }
 
 export function addImportDeclaration<T>(namedImports: string[], moduleSpecifier: string) {
-  console.log('1');
   return (state: CodeMorphState<T>): CodeMorphState<T> => {
-    console.log('2');
     state.sourceFile.addImportDeclaration({ namedImports, moduleSpecifier });
-
     return state;
   };
 }

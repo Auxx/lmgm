@@ -21,7 +21,8 @@ export class ProjectManagerService {
 
     const descriptor: ProjectDescriptor = {
       version: currentProjectVersion,
-      name
+      name,
+      images: []
     };
 
     const descriptorPath = await this.internalApiService.pathJoin(mkDirResult.data, projectDescriptorFileName);

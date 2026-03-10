@@ -1,13 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { InternalApiService } from '../ipc/internal-api/internal-api.service';
 
 @Component({
-  imports: [ RouterModule, MatToolbarModule, MatButton, MatMenuModule ],
+  imports: [ RouterModule ],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss'

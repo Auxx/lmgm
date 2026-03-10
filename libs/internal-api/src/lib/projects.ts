@@ -11,9 +11,12 @@ export interface ProjectDescriptor {
 
   /** @minLength 1 */
   name: string;
+
+  images: string[];
 }
 
 export const emptyProjectDescriptor = (): ProjectDescriptor => ({
   version: currentProjectVersion,
-  name: ''
+  name: '',
+  images: []
 });

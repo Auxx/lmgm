@@ -1,9 +1,30 @@
 <mat-toolbar class="top-toolbar">
   <button matButton [matMenuTriggerFor]="fileMenu">File</button>
+
+  <div class="spacer"></div>
+
+  <mat-button-toggle-group name="mode"
+                           [hideSingleSelectionIndicator]="true"
+                           [formControl]="mode">
+    @for(mode of availableModes; track mode.value) {
+      <mat-button-toggle [value]="mode.value">{{ mode.name }}</mat-button-toggle>
+
+    }
+  </mat-button-toggle-group>
 </mat-toolbar>
 
 <div class="page-content">
-  <p>app-project-view works!</p>
+  @switch (modeSwitch()) {
+    @case ('import') {
+      <p>Import mode</p>
+    }
+    @case ('process') {
+      <p>Process mode</p>
+    }
+    @case ('deploy') {
+      <p>Deploy mode</p>
+    }
+  }
 </div>
 
 <mat-menu #fileMenu="matMenu">

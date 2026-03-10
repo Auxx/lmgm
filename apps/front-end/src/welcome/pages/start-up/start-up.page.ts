@@ -32,7 +32,7 @@ export class StartUpPage {
       .subscribe(async result => {
         try {
           const location = await this.projectManagerService.create(result.projectName, result.location);
-          await this.router.navigate([ 'project', 'view', location ]);
+          this.navigateToProject(location);
         } catch (error) {
           const message = error instanceof Error ? error.message : 'Unknown error happened.';
           this.snackBar.open(message, 'OK');
@@ -41,10 +41,14 @@ export class StartUpPage {
   };
 
   readonly onOpenProject = async () => {
-    const result = await this.projectManagerService.openWithDialog();
+    const location = await this.projectManagerService.openWithDialog();
 
-    if (result !== null) {
-      await this.router.navigate([ 'project', 'view', result ]);
+    if (location !== null) {
+      this.navigateToProject(location);
     }
+  };
+
+  private readonly navigateToProject = (location: string) => {
+    this.router.navigate([ 'project', 'view', location ]).then();
   };
 }

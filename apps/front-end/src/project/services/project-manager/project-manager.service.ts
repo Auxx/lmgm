@@ -1,5 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { currentProjectVersion, ProjectDescriptor, projectDescriptorFileName } from '@lmgm/internal-api';
+import {
+  ApiResult,
+  currentProjectVersion,
+  isProject,
+  ProjectDescriptor,
+  projectDescriptorFileName
+} from '@lmgm/internal-api';
 import { InternalApiService } from '../../../ipc/internal-api/internal-api.service';
 
 @Injectable({ providedIn: 'root' })
@@ -33,7 +39,17 @@ export class ProjectManagerService {
     return result.success ? result.data : null;
   };
 
-  readonly open = async (path: string) => {
-    console.log('open project path', path);
+  readonly open = async (location: string): Promise<ApiResult<ProjectDescriptor>> => {
+    const result = await this.internalApiService.getProjectDescriptor(location);
+
+    if (!result.success) {
+      return result;
+    }
+
+    if (!isProject(result.data)) {
+      return { success: false, errorMessage: 'Malformed project descriptor.' };
+    }
+
+    return result;
   };
 }

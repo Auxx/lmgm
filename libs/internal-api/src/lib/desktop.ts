@@ -1,14 +1,16 @@
 import { Arguments } from 'yargs';
+import type { ProjectDescriptor } from './projects';
 
 export interface Desktop {
   getAppVersion: () => Promise<string>;
-  platform: string;
+  platform: () => string;
   isPackaged: () => Promise<boolean>;
   showOpenFolderDialog: () => Promise<OpenFolderResult>;
   showOpenProjectDialog: () => Promise<ApiResult<string>>;
   mkDir: (path: string, name: string) => Promise<ApiResult<string>>;
   writeJson: <T>(path: string, data: T) => Promise<ApiResult<undefined>>;
   pathJoin: (...paths: string[]) => Promise<string>;
+  getProjectDescriptor: (location: string) => Promise<ApiResult<ProjectDescriptor>>;
 }
 
 export interface ApiSuccess<T> {
@@ -18,6 +20,7 @@ export interface ApiSuccess<T> {
 
 export interface ApiFailure {
   success: false;
+  errorMessage: string;
 }
 
 export type ApiResult<T> = ApiSuccess<T> | ApiFailure;

@@ -15,7 +15,8 @@
     "nxe:test:frontend": "nx test front-end",
     "nxe:test:backend": "nx test back-end",
     "nxe:package:app": "nx run back-end:make --prepackgeOnly",
-    "nxe:make:app": "nx run back-end:make"
+    "nxe:make:app": "nx run back-end:make",
+    "typia": "typia generate --input libs/internal-api/src/typia/src --output libs/internal-api/src/typia/gen --project libs/internal-api/tsconfig.lib.json"
   },
   "private": true,
   "dependencies": {
@@ -72,6 +73,7 @@
     "ts-node": "10.9.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
+    "typia": "^11.0.3",
     "vite": "^7.0.0",
     "vitest": "^4.0.8"
   }

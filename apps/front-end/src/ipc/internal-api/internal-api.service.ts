@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import '@lmgm/internal-api';
+import { Desktop } from '@lmgm/internal-api';
 
 @Injectable({ providedIn: 'root' })
-export class InternalApiService {
+export class InternalApiService implements Desktop {
   getAppVersion = async () => window.desktop.getAppVersion();
 
-  platform = () => window.desktop.platform;
+  platform = () => window.desktop.platform();
 
   isPackaged = async () => window.desktop.isPackaged();
 
@@ -18,4 +19,6 @@ export class InternalApiService {
   writeJson = async <T>(path: string, data: T) => window.desktop.writeJson(path, data);
 
   pathJoin = async (...paths: string[]) => window.desktop.pathJoin(...paths);
+
+  getProjectDescriptor = (location: string) => window.desktop.getProjectDescriptor(location);
 }

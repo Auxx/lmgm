@@ -82,6 +82,7 @@ export default class App {
 
       if (!App.application.isPackaged) {
         App.mainWindow.webContents.openDevTools();
+        console.log(App.application.getPath('userData'));
       }
     });
 
@@ -123,6 +124,7 @@ export default class App {
 
     App.BrowserWindow = browserWindow;
     App.application = app;
+    App.application.setPath('userData', join(App.application.getPath('appData'), 'lmgm'));
 
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
     App.application.on('ready', App.onReady); // App is ready to load data

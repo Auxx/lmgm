@@ -21,4 +21,12 @@ export class InternalApiService implements Desktop {
   pathJoin = async (...paths: string[]) => window.desktop.pathJoin(...paths);
 
   getProjectDescriptor = (location: string) => window.desktop.getProjectDescriptor(location);
+
+  prefGet = async <T>(key: string): Promise<T | undefined> => window.desktop.prefGet(key);
+
+  prefSet = async <T>(key: string, value: T): Promise<void> => window.desktop.prefSet(key, value);
+
+  prefHas = async (key: string): Promise<boolean> => window.desktop.prefHas(key);
+
+  prefDelete = async (key: string): Promise<void> => window.desktop.prefDelete(key);
 }

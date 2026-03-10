@@ -2,6 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
+    "module": "node20",
+    "moduleResolution": "node16",
+    "moduleDetection": "force",
+    "target": "esnext",
     "types": ["node"]
   },
   "exclude": [

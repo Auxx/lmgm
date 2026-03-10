@@ -10,6 +10,10 @@ export interface Desktop {
   writeJson: <T>(path: string, data: T) => Promise<ApiResult<undefined>>;
   pathJoin: (...paths: string[]) => Promise<string>;
   getProjectDescriptor: (location: string) => Promise<ApiResult<ProjectDescriptor>>;
+  prefGet: <T>(key: string) => Promise<T | undefined>;
+  prefSet: <T>(key: string, value: T) => Promise<void>;
+  prefHas: (key: string) => Promise<boolean>;
+  prefDelete: (key: string) => Promise<void>;
 }
 
 export interface ApiSuccess<T> {

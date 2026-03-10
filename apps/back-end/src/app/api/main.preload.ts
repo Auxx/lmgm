@@ -10,7 +10,11 @@ const api: Desktop = {
   mkDir: (path, name) => ipcRenderer.invoke('mkDir', path, name),
   writeJson: (path, data) => ipcRenderer.invoke('writeJson', path, data),
   pathJoin: (...paths) => ipcRenderer.invoke('pathJoin', ...paths),
-  getProjectDescriptor: (location: string) => ipcRenderer.invoke('getProjectDescriptor', location)
+  getProjectDescriptor: (location: string) => ipcRenderer.invoke('getProjectDescriptor', location),
+  prefGet: (key: string) => ipcRenderer.invoke('prefGet', key),
+  prefSet: (key: string, value) => ipcRenderer.invoke('prefSet', key, value),
+  prefHas: (key: string) => ipcRenderer.invoke('prefHas', key),
+  prefDelete: (key: string) => ipcRenderer.invoke('prefDelete', key)
 };
 
 contextBridge.exposeInMainWorld('desktop', api);

@@ -1,1 +1,15 @@
-<p>app-project-view works!</p>
+<mat-toolbar class="top-toolbar">
+  <button matButton [matMenuTriggerFor]="fileMenu">File</button>
+</mat-toolbar>
+
+<div class="page-content">
+  <p>app-project-view works!</p>
+</div>
+
+<mat-menu #fileMenu="matMenu">
+  <button mat-menu-item (click)="onClose()">Close project</button>
+</mat-menu>
+
+<mat-toolbar class="bottom-toolbar">
+  <button matButton>Hello!</button>
+</mat-toolbar>

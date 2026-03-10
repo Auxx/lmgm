@@ -1,4 +1,3 @@
-import { Arguments } from 'yargs';
 import type { ProjectDescriptor } from './projects';
 
 export interface Desktop {

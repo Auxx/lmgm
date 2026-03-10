@@ -12,3 +12,8 @@ export interface ProjectDescriptor {
   /** @minLength 1 */
   name: string;
 }
+
+export const emptyProjectDescriptor = (): ProjectDescriptor => ({
+  version: currentProjectVersion,
+  name: ''
+});

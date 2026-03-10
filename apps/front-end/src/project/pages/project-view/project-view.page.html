@@ -6,7 +6,7 @@
   <mat-button-toggle-group name="mode"
                            [hideSingleSelectionIndicator]="true"
                            [formControl]="mode">
-    @for(mode of availableModes; track mode.value) {
+    @for (mode of availableModes; track mode.value) {
       <mat-button-toggle [value]="mode.value">{{ mode.name }}</mat-button-toggle>
 
     }
@@ -16,13 +16,13 @@
 <div class="page-content">
   @switch (modeSwitch()) {
     @case ('import') {
-      <p>Import mode</p>
+      <app-import-images/>
     }
     @case ('process') {
-      <p>Process mode</p>
+      <app-process-images/>
     }
     @case ('deploy') {
-      <p>Deploy mode</p>
+      <app-deploy-project/>
     }
   }
 </div>

@@ -32,8 +32,7 @@ export class StartUpPage {
       .subscribe(async result => {
         try {
           const location = await this.projectManagerService.create(result.projectName, result.location);
-          console.log('New project location', location);
-          // TODO Open project
+          await this.router.navigate([ 'project', 'view', location ]);
         } catch (error) {
           const message = error instanceof Error ? error.message : 'Unknown error happened.';
           this.snackBar.open(message, 'OK');

@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.inset {
+  margin: 8px 16px;
+  display: flex;
+  flex-direction: column;
+
+  &.centered {
+    justify-content: center;
+  }
+}
+
+p {
+  &.centered {
+    text-align: center;
+  }
+}

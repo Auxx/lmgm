@@ -1,0 +1,12 @@
+@let items = mountPoints();
+
+<ul>
+  @for (item of items; track item) {
+    <li>
+      <a href="#">
+        <mat-icon>chevron_right</mat-icon>
+        {{ item }}
+      </a>
+    </li>
+  }
+</ul>

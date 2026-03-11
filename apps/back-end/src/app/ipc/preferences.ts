@@ -3,7 +3,8 @@ import ElectronStore from 'electron-store';
 
 const store = new ElectronStore();
 
-export const prefGet = async <T>(_: IpcMainInvokeEvent, key: string): Promise<T | undefined> => store.get(key);
+export const prefGet = async <T>(_: IpcMainInvokeEvent, key: string): Promise<T | undefined> =>
+  store.get(key) as T | undefined;
 
 export const prefSet = async <T>(_: IpcMainInvokeEvent, key: string, value: T): Promise<void> => store.set(key, value);
 

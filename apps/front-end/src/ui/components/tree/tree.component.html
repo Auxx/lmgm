@@ -1,0 +1,28 @@
+@let items = branches();
+
+<ul [class.with-offset]="withOffset()">
+  @for (item of items; track item.id) {
+    <li [class.is-loading]="item.isLoading">
+      <button (click)="open.emit(item)">
+        <mat-icon>
+          {{
+                item.isLoading
+                    ? 'refresh'
+                    : item.isOpen
+                        ? 'keyboard_arrow_down'
+                        : 'keyboard_arrow_right'
+          }}
+        </mat-icon>
+        @if (item.isLoading) {
+          Loading...
+        } @else {
+          {{ item.name }}
+        }
+      </button>
+
+      @if (item.isOpen && item.children.length > 0) {
+        <app-tree [branches]="item.children" [withOffset]="true"/>
+      }
+    </li>
+  }
+</ul>

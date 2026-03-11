@@ -1,0 +1,24 @@
+<div class="inset centered">
+  <button mat-button
+          (click)="onAddSource()">
+    Add a source
+  </button>
+</div>
+
+<mat-divider/>
+
+@let src = sources();
+
+<div class="inset">
+  @if (src.length === 0) {
+    <p class="centered">No sources defined yet</p>
+  } @else {
+    <app-folder-tree [mountPoints]="sources()"/>
+  }
+</div>
+
+<mat-divider/>
+
+<div class="inset">
+  <app-tree [branches]="branches"/>
+</div>

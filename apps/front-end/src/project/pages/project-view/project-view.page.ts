@@ -8,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { emptyProjectDescriptor, ProjectDescriptor } from '@lmgm/internal-api';
+import { ImportImagesComponent } from '../../../import/components/import-images/import-images.component';
 import { DeployProjectComponent } from '../../components/deploy-project/deploy-project.component';
-import { ImportImagesComponent } from '../../components/import-images/import-images.component';
 import { ProcessImagesComponent } from '../../components/process-images/process-images.component';
 import { ProjectManagerService } from '../../services/project-manager/project-manager.service';
 

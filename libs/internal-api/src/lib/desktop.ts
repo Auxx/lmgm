@@ -32,4 +32,10 @@ export type ApiResult<T> = ApiSuccess<T> | ApiFailure;
 
 export type OpenFolderResult = ApiResult<string>;
 
-export const appProtocol = 'atom';
+export const appProtocol = 'lmgm';
+
+export const appDomain = 'app';
+
+export const appPaths = {
+  thumbs: '/thumbs'
+};

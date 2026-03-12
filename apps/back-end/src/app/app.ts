@@ -1,8 +1,10 @@
-import { BrowserWindow, screen, shell } from 'electron';
+import { appProtocol } from '@lmgm/internal-api';
+import { BrowserWindow, protocol, screen, shell } from 'electron';
 import { join } from 'path';
 import { format } from 'url';
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
+import { handleCommunication } from './image-processing/image-server';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -44,6 +46,7 @@ export default class App {
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
     if (rendererAppName) {
+      protocol.handle(appProtocol, handleCommunication);
       App.initMainWindow();
       App.loadMainWindow();
     }
@@ -125,6 +128,7 @@ export default class App {
     App.BrowserWindow = browserWindow;
     App.application = app;
     App.application.setPath('userData', join(App.application.getPath('appData'), 'lmgm'));
+    protocol.registerSchemesAsPrivileged([ { scheme: appProtocol, privileges: { bypassCSP: true } } ]);
 
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
     App.application.on('ready', App.onReady); // App is ready to load data

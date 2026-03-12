@@ -3,7 +3,7 @@ import { join } from 'path';
 import { environment } from '../../environments/environment';
 import App from '../app';
 import { showOpenFolderDialog, showOpenProjectDialog } from '../ipc/dialogs';
-import { mkDir, writeJson } from '../ipc/fs';
+import { fsReadDir, mkDir, writeJson } from '../ipc/fs';
 import { prefDelete, prefGet, prefHas, prefSet } from '../ipc/preferences';
 import { getProjectDescriptor } from '../ipc/project';
 
@@ -23,6 +23,7 @@ ipcMain.handle('mkDir', mkDir);
 ipcMain.handle('writeJson', writeJson);
 ipcMain.handle('pathJoin', async (_: IpcMainInvokeEvent, ...paths: string[]) => join(...paths));
 ipcMain.handle('getProjectDescriptor', getProjectDescriptor);
+ipcMain.handle('fsReadDir', fsReadDir);
 
 ipcMain.handle('prefGet', prefGet);
 ipcMain.handle('prefSet', prefSet);

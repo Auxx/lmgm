@@ -14,7 +14,8 @@ const api: Desktop = {
   prefGet: (key: string) => ipcRenderer.invoke('prefGet', key),
   prefSet: (key: string, value) => ipcRenderer.invoke('prefSet', key, value),
   prefHas: (key: string) => ipcRenderer.invoke('prefHas', key),
-  prefDelete: (key: string) => ipcRenderer.invoke('prefDelete', key)
+  prefDelete: (key: string) => ipcRenderer.invoke('prefDelete', key),
+  fsReadDir: (path: string) => ipcRenderer.invoke('fsReadDir', path)
 };
 
 contextBridge.exposeInMainWorld('desktop', api);

@@ -21,7 +21,9 @@
       </button>
 
       @if (item.isOpen && item.children.length > 0) {
-        <app-tree [branches]="item.children" [withOffset]="true"/>
+        <app-tree [branches]="item.children"
+                  [withOffset]="true"
+                  (open)="open.emit($event)"/>
       }
     </li>
   }

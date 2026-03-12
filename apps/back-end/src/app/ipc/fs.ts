@@ -1,6 +1,7 @@
-import { ApiResult } from '@lmgm/internal-api';
+import { ApiResult, FileInfo } from '@lmgm/internal-api';
 import { IpcMainInvokeEvent } from 'electron';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, writeFile } from 'node:fs/promises';
+import { extname } from 'node:path';
 import { join } from 'path';
 
 export const mkDir = async (_: IpcMainInvokeEvent, path: string, name: string): Promise<ApiResult<string>> => {
@@ -20,4 +21,16 @@ export const writeJson = async <T>(_: IpcMainInvokeEvent, path: string, data: T)
   } catch (_) {
     return { success: false, errorMessage: `Failed to write file ${path}.` };
   }
+};
+
+export const fsReadDir = async (_: IpcMainInvokeEvent, path: string): Promise<FileInfo[]> => {
+  const result = await readdir(path, { withFileTypes: true });
+
+  return result.map(file => ({
+    id: join(file.parentPath, file.name),
+    name: file.name,
+    path: file.parentPath,
+    isDirectory: file.isDirectory(),
+    ext: extname(file.name)
+  }));
 };

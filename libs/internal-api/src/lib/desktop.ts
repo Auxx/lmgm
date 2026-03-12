@@ -1,3 +1,4 @@
+import { FileInfo } from './fs';
 import type { ProjectDescriptor } from './projects';
 
 export interface Desktop {
@@ -14,6 +15,7 @@ export interface Desktop {
   prefSet: <T>(key: string, value: T) => Promise<void>;
   prefHas: (key: string) => Promise<boolean>;
   prefDelete: (key: string) => Promise<void>;
+  fsReadDir: (path: string) => Promise<FileInfo[]>;
 }
 
 export interface ApiSuccess<T> {

@@ -22,6 +22,8 @@ export class InternalApiService implements Desktop {
 
   getProjectDescriptor = (location: string) => window.desktop.getProjectDescriptor(location);
 
+  fsReadDir = async (path: string) => window.desktop.fsReadDir(path);
+
   prefGet = async <T>(key: string): Promise<T | undefined> => window.desktop.prefGet(key);
 
   prefSet = async <T>(key: string, value: T): Promise<void> => window.desktop.prefSet(key, value);

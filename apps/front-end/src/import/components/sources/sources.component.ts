@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, output, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/list';
-import { FileInfo } from '@lmgm/internal-api';
 import { FileSystemService } from '../../../file-system/services/file-system/file-system.service';
 import { InternalApiService } from '../../../ipc/internal-api/internal-api.service';
 import { PreferenceManagerService } from '../../../preferences/services/preference-manager/preference-manager.service';
@@ -30,8 +29,6 @@ export class SourcesComponent {
   readonly sources = signal<string[]>([]);
 
   readonly root = signal<TreeBranch[]>([]);
-
-  readonly files = signal<FileInfo[]>([]);
 
   readonly dirChange = output<TreeBranch>();
 
@@ -110,8 +107,6 @@ export class SourcesComponent {
           }))
       }
     );
-
-    // await this.loadFiles(branch, result);
   };
 
   private readonly updateTree = (id: string, values: Partial<TreeBranch>, notifyUpstream = true) => {
@@ -126,14 +121,4 @@ export class SourcesComponent {
       return result;
     });
   };
-
-  // private readonly loadFiles = async (branch: TreeBranch, cache?: FileInfo[]) => {
-  //   const result = cache === undefined
-  //     ? await this.fileSystemService.readDir(branch.id)
-  //     : cache;
-  //
-  //   this.files.set(result
-  //     .filter(item => !item.isDirectory)
-  //     .filter(f => supportedFileExtensions.includes(f.ext.toLowerCase().replace('.', ''))));
-  // };
 }

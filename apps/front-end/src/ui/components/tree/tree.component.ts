@@ -34,6 +34,22 @@ export class TreeComponent {
     return undefined;
   };
 
+  static readonly findSiblings = (id: string, branches: TreeBranch[]): TreeBranch[] | undefined => {
+    for (const branch of branches) {
+      if (branch.id === id) {
+        return branches.filter(branch => branch.id !== id);
+      }
+
+      const sub = TreeComponent.findSiblings(id, branch.children);
+
+      if (sub !== undefined) {
+        return sub;
+      }
+    }
+
+    return undefined;
+  };
+
   static readonly updateBranchById = (
     id: string,
     branches: TreeBranch[],
@@ -45,6 +61,10 @@ export class TreeComponent {
 
     if (branch !== undefined) {
       Object.assign(branch, values);
+
+      if (branch.isOpen) {
+        TreeComponent.findSiblings(id, clone)?.forEach(sibling => sibling.isOpen = false);
+      }
     }
 
     return clone;

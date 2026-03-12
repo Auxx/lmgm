@@ -1,1 +1,5 @@
-<app-sources/>
+<app-sources (dirChange)="onDirChange($event)"/>
+
+<div class="images">
+  <pre>{{ files() | json }}</pre>
+</div>

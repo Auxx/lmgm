@@ -23,10 +23,8 @@ export class ImportImagesComponent {
   readonly onDirChange = (branch: TreeBranch) => this.loadFiles(branch).then();
 
   private readonly loadFiles = async (branch: TreeBranch) => {
-    const result = await this.fileSystemService.readDir(branch.id);
-
     this.files.set(
-      result
+      (await this.fileSystemService.readDir(branch.id))
         .filter(item => !item.isDirectory)
         .filter(f => supportedFileExtensions.includes(f.ext.toLowerCase().replace('.', '')))
     );

@@ -1,4 +1,4 @@
-import type { ProjectDescriptor } from '@lmgm/internal-api';
+import { ProjectDescriptor } from '../../lib/projects';
 export const isProject = (() => {
   const _io0 = (input: any): boolean =>
     'number' === typeof input.version && 1 <= input.version

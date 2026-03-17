@@ -14,6 +14,9 @@
         "tsConfig": "libs/internal-api/tsconfig.lib.json",
         "assets": []
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

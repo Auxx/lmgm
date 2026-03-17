@@ -1,12 +1,10 @@
 {
-  "name": "@lmgm/internal-api",
+  "name": "@hexmode/lm-file-utils",
   "version": "0.0.1",
-  "private": true,
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "typia": "^11.0.3",
     "tslib": "^2.3.0"
   }
 }

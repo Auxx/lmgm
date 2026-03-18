@@ -1,19 +1,33 @@
+import { ThumbnailManager } from '@hexmode/lm-file-utils';
 import { appPaths } from '@lmgm/internal-api';
 import { net } from 'electron';
 import * as url from 'node:url';
 
+const thumbnailManager = new ThumbnailManager();
+
 export const handleCommunication = async (request: GlobalRequest): Promise<GlobalResponse> => {
-  console.log('URL', request.url);
-
   const parsed = new url.URL(request.url);
-
-  console.log('parsed', parsed);
 
   switch (parsed.pathname) {
     case appPaths.thumbs:
-      break;
+      return await thumb(parsed.searchParams);
   }
 
-  // net.fetch(url.pathToFileURL(decodeURIComponent(request.url.slice(`${appProtocol}://`.length))).toString())
-  return net.fetch(url.pathToFileURL('C:\\Users\\Aleks\\Desktop\\shit\\180.png').toString());
+  return notFound();
 };
+
+const thumb = async (params: URLSearchParams): Promise<GlobalResponse> => {
+  const fileName = params.get('image');
+
+  if (fileName === null) {
+    return notFound();
+  }
+
+  try {
+    return net.fetch(url.pathToFileURL(await thumbnailManager.getThumbnail(fileName)).toString());
+  } catch (_error) {
+    return notFound();
+  }
+};
+
+const notFound = () => new Response('Not found', { status: 404 });

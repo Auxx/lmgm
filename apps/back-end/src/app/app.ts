@@ -1,3 +1,4 @@
+import { CacheManager } from '@hexmode/lm-file-utils';
 import { appProtocol } from '@lmgm/internal-api';
 import { BrowserWindow, protocol, screen, shell } from 'electron';
 import { join } from 'path';
@@ -127,7 +128,10 @@ export default class App {
 
     App.BrowserWindow = browserWindow;
     App.application = app;
+
     App.application.setPath('userData', join(App.application.getPath('appData'), 'lmgm'));
+    CacheManager.setCacheLocation(App.application.getPath('userData'));
+
     protocol.registerSchemesAsPrivileged([ { scheme: appProtocol, privileges: { bypassCSP: true } } ]);
 
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.

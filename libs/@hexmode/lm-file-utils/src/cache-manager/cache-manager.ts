@@ -1,3 +1,4 @@
+import { mkdirSync } from 'fs';
 import { createHash } from 'node:crypto';
 import { readdir } from 'node:fs/promises';
 import { extname } from 'node:path';
@@ -30,7 +31,11 @@ export class CacheManager {
    * @param {CacheType} type - The specific type of cache to get the directory for.
    * @returns {string} The absolute file system path where cached data for the specified type should be stored.
    */
-  readonly cacheDirForType = (type: CacheType): string => join(CacheManager.cacheLocation, type);
+  readonly cacheDirForType = (type: CacheType): string => {
+    const path = join(CacheManager.cacheLocation, type);
+    mkdirSync(path, { recursive: true });
+    return path;
+  };
 
   /**
    * Retrieves the cached file content for a given cache type and file name.
@@ -70,10 +75,11 @@ export class CacheManager {
    * @param {string} type - The type identifier used to determine the cache directory.
    * @param {string} fileName - The original source file name to be hashed and cached.
    * @returns {string} A unique string representing the full path of the generated cache file. */
-  readonly generateCacheName = (type: CacheType, fileName: string): string => {
+  readonly generateCacheName = (type: CacheType, fileName: string, extension?: string): string => {
     const dir = this.cacheDirForType(type);
     const hash = this.hashFileName(fileName);
+    const ext = extension === undefined ? extname(fileName) : extension;
 
-    return join(dir, `${hash}-${Date.now()}${extname(fileName)}`);
+    return join(dir, `${hash}.${Date.now()}${ext}`);
   };
 }

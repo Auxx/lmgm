@@ -16,6 +16,8 @@ describe('CacheManager', () => {
         join('.cache', 'thumbs', 'db41160c1d2b22eb026c22ce9a357c884ce0a0a80128bcefc2621ee256fcb0bf')
       );
       expect(result).toContain('.jpg');
+
+      expect(service.generateCacheName('thumbs', 'pic01.jpg', '.avif')).toContain('.avif');
     });
   });
 });

@@ -17,7 +17,8 @@ export class ThumbnailManager {
 
   private readonly cacheManager = new CacheManager();
 
-  readonly getThumbnail = async (fileName: string): Promise<string> => {
+  // TODO Set different names for different sizes
+  readonly getThumbnail = async (fileName: string, width?: number, height?: number): Promise<string> => {
     const found = await this.cacheManager.getCachedFile('thumbs', fileName);
 
     if (found !== false) {
@@ -25,11 +26,13 @@ export class ThumbnailManager {
     }
 
     const cache = this.cacheManager.generateCacheName('thumbs', fileName, defaultExt);
+    const w = width ?? ThumbnailManager.width;
+    const h = height ?? ThumbnailManager.height;
 
     await sharp(fileName)
       .resize(
-        ThumbnailManager.width,
-        ThumbnailManager.height,
+        w,
+        h,
         {
           fit: 'inside',
           withoutEnlargement: false

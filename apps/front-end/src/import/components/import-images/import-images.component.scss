@@ -8,3 +8,9 @@ app-sources {
   width: 200px;
   background-color: var(--mat-sys-surface);
 }
+
+.images {
+  img {
+    object-fit: contain;
+  }
+}

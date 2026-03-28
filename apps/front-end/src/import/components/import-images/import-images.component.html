@@ -1,8 +1,19 @@
 <app-sources (dirChange)="onDirChange($event)"/>
 
 <div class="images">
-  <p><img src="lmgm://app/thumbs?image=C:/Users/Aleks/Desktop/Cat/photo_2025-05-11_22-16-32.jpg" alt=""></p>
-  <p><img src="lmgm://app/thumbs?image=C:/Users/Aleks/Desktop/Cat/photo_2025-06-11_08-23-08.jpg" alt=""></p>
+  <p>
+    <img
+      [ngSrc]="`lmgm://app/thumbs?image=C:/Users/Aleks/Desktop/Cat/photo_2025-05-11_22-16-32.jpg&width=${imageWidth}&height=${imageHeight}`"
+      [width]="thumbWidth"
+      [height]="thumbHeight"
+      alt="">
+  </p>
+  <p>
+    <img [ngSrc]="`lmgm://app/thumbs?image=C:/Users/Aleks/Desktop/Cat/photo_2025-06-11_08-23-08.jpg&width=${imageWidth}&height=${imageHeight}`"
+         [width]="thumbWidth"
+         [height]="thumbHeight"
+         alt="">
+  </p>
 
   <pre>{{ files() | json }}</pre>
 </div>

@@ -17,7 +17,8 @@
     "paths": {
       "@lmgm/dev-toolkit": ["libs/dev-toolkit/src/index.ts"],
       "@lmgm/internal-api": ["libs/internal-api/src/index.ts"],
-      "@hexmode/lm-file-utils": ["libs/@hexmode/lm-file-utils/src/index.ts"]
+      "@hexmode/lm-file-utils": ["libs/@hexmode/lm-file-utils/src/index.ts"],
+      "@hexmode/lm-ui": ["libs/@hexmode/lm-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

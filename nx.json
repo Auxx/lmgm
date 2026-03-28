@@ -51,6 +51,15 @@
           "codeCoverage": true
         }
       }
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@nx/angular:unit-test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
     }
   },
   "generators": {
@@ -111,6 +120,10 @@
     },
     "@schematics/angular:resolver": {
       "typeSeparator": "."
+    },
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "vitest-angular"
     }
   },
   "plugins": [

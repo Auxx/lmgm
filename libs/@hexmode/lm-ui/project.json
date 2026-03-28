@@ -2,7 +2,7 @@
   "name": "@hexmode/lm-ui",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@hexmode/lm-ui/src",
-  "prefix": "lib",
+  "prefix": "lmui",
   "projectType": "library",
   "release": {
     "version": {

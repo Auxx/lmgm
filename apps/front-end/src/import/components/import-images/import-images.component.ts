@@ -1,7 +1,7 @@
 import { JsonPipe, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ScaleManagerService, ThumbnailComponent } from '@hexmode/lm-ui';
 import { FileInfo, supportedFileExtensions } from '@lmgm/internal-api';
-import { ScaleManagerService } from '../../../device-scaling/services/scale-manager/scale-manager.service';
 import { FileSystemService } from '../../../file-system/services/file-system/file-system.service';
 import { TreeBranch } from '../../../ui/components/tree/tree.component.types';
 import { SourcesComponent } from '../sources/sources.component';
@@ -12,7 +12,8 @@ import { thumbHeight, thumbWidth } from './import-images.component.types';
   imports: [
     SourcesComponent,
     JsonPipe,
-    NgOptimizedImage
+    NgOptimizedImage,
+    ThumbnailComponent
   ],
   templateUrl: './import-images.component.html',
   styleUrl: './import-images.component.scss',
@@ -43,5 +44,9 @@ export class ImportImagesComponent {
         .filter(item => !item.isDirectory)
         .filter(f => supportedFileExtensions.includes(f.ext.toLowerCase().replace('.', '')))
     );
+  };
+
+  protected readonly onSelection = (image: string) => {
+    console.log('onSelection', image);
   };
 }

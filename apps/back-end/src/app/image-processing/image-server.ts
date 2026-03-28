@@ -18,13 +18,23 @@ export const handleCommunication = async (request: GlobalRequest): Promise<Globa
 
 const thumb = async (params: URLSearchParams): Promise<GlobalResponse> => {
   const fileName = params.get('image');
+  const width = Number(params.get('width'));
+  const height = Number(params.get('height'));
 
   if (fileName === null) {
     return notFound();
   }
 
   try {
-    return net.fetch(url.pathToFileURL(await thumbnailManager.getThumbnail(fileName)).toString());
+    return net.fetch(
+      url.pathToFileURL(
+        await thumbnailManager.getThumbnail(
+          fileName,
+          isNaN(width) || width === 0 ? undefined : width,
+          isNaN(height) || height === 0 ? undefined : height
+        )
+      ).toString()
+    );
   } catch (_error) {
     return notFound();
   }

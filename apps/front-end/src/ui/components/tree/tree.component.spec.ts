@@ -14,6 +14,7 @@ describe('TreeComponent', () => {
 
     fixture = TestBed.createComponent(TreeComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('branches', []);
     await fixture.whenStable();
   });
 

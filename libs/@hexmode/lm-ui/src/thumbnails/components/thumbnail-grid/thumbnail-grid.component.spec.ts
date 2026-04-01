@@ -14,6 +14,10 @@ describe('ThumbnailGridComponent', () => {
 
     fixture = TestBed.createComponent(ThumbnailGridComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('width', 320);
+    fixture.componentRef.setInput('height', 180);
+    fixture.componentRef.setInput('images', []);
+    fixture.componentRef.setInput('api', 'atom://localhost');
     await fixture.whenStable();
   });
 

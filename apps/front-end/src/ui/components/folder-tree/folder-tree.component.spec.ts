@@ -14,6 +14,7 @@ describe('FolderTreeComponent', () => {
 
     fixture = TestBed.createComponent(FolderTreeComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('mountPoints', []);
     await fixture.whenStable();
   });
 

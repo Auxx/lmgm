@@ -67,6 +67,7 @@
     "jest-util": "^30.0.2",
     "jsdom": "^27.1.0",
     "jsonc-eslint-parser": "^2.1.0",
+    "ng-mocks": "14.15.2",
     "ng-packagr": "~21.1.0",
     "nx": "22.5.2",
     "nx-electron": "^22.0.0",

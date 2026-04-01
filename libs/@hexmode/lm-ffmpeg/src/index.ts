@@ -1,1 +1,1 @@
-export * from './lib/lm-ffmpeg';
+export * from './types/pixel-formats';

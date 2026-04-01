@@ -1,0 +1,6 @@
+@for(item of images(); track item) {
+  <lmui-thumbnail [width]="width()"
+                  [height]="height()"
+                  [image]="item"
+                  [api]="api()"/>
+}

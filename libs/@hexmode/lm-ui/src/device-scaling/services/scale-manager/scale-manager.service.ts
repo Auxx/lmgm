@@ -8,6 +8,6 @@ export class ScaleManagerService {
 
   readonly dimension = (value: number, applyPixelRatio = true): number =>
     applyPixelRatio
-      ? value * this.devicePixelRatio()
+      ? Math.floor(value * this.devicePixelRatio())
       : value;
 }

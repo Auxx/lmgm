@@ -1,29 +1,10 @@
 <app-sources (dirChange)="onDirChange($event)"/>
 
 <div class="images">
-  <p>
-    <img
-      [ngSrc]="`lmgm://app/thumbs?image=C:/Users/Aleks/Desktop/Cat/photo_2025-05-11_22-16-32.jpg&width=${imageWidth}&height=${imageHeight}`"
-      [width]="thumbWidth"
-      [height]="thumbHeight"
-      alt="">
-  </p>
-  <p>
-    <img
-      [ngSrc]="`lmgm://app/thumbs?image=C:/Users/Aleks/Desktop/Cat/photo_2025-06-11_08-23-08.jpg&width=${imageWidth}&height=${imageHeight}`"
-      [width]="thumbWidth"
-      [height]="thumbHeight"
-      alt="">
-  </p>
-
-  <p>
-    <lmui-thumbnail api="lmgm://app/"
-                    image="C:/Users/Aleks/Desktop/Cat/photo_2025-06-11_08-23-08.jpg"
-                    [width]="thumbWidth"
-                    [height]="thumbHeight"
-                    [selected]="false"
-                    (selection)="onSelection($event)"/>
-  </p>
+  <lmui-thumbnail-grid api="lmgm://app/"
+                       [images]="images"
+                       [width]="thumbWidth"
+                       [height]="thumbHeight"/>
 
   <pre>{{ files() | json }}</pre>
 </div>

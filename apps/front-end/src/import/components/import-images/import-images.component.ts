@@ -1,6 +1,6 @@
-import { JsonPipe, NgOptimizedImage } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { ScaleManagerService, ThumbnailComponent } from '@hexmode/lm-ui';
+import { ScaleManagerService, ThumbnailGridComponent } from '@hexmode/lm-ui';
 import { FileInfo, supportedFileExtensions } from '@lmgm/internal-api';
 import { FileSystemService } from '../../../file-system/services/file-system/file-system.service';
 import { TreeBranch } from '../../../ui/components/tree/tree.component.types';
@@ -12,8 +12,7 @@ import { thumbHeight, thumbWidth } from './import-images.component.types';
   imports: [
     SourcesComponent,
     JsonPipe,
-    NgOptimizedImage,
-    ThumbnailComponent
+    ThumbnailGridComponent
   ],
   templateUrl: './import-images.component.html',
   styleUrl: './import-images.component.scss',
@@ -35,6 +34,18 @@ export class ImportImagesComponent {
   readonly files = signal<FileInfo[]>([]);
 
   readonly onDirChange = (branch: TreeBranch) => this.loadFiles(branch).then();
+
+  readonly images=[
+    'C:/Users/Aleks/Desktop/Cat/photo_2025-05-11_22-16-32.jpg',
+    'C:/Users/Aleks/Desktop/Cat/photo_2025-06-11_08-23-08.jpg',
+    'C:/Users/Aleks/Desktop/Cat/photo_2025-05-20_19-44-01.jpg',
+    'C:/Users/Aleks/Desktop/Cat/photo_2025-06-07_12-16-23 (2).jpg',
+    'C:/Users/Aleks/Desktop/Cat/photo_2025-06-07_12-16-23 (3).jpg',
+    'C:/Users/Aleks/Desktop/Cat/photo_2025-06-07_12-16-23.jpg',
+    'C:/Users/Aleks/Desktop/Cat/PXL_20260304_194706260~2.jpg',
+    'C:/Users/Aleks/Desktop/Cat/PXL_20260321_164749933.jpg',
+    // 'C:/Users/Aleks/Desktop/Cat/richmond-01.avif'
+  ];
 
   private readonly loadFiles = async (branch: TreeBranch) => {
     this.scaleManagerService.devicePixelRatio();

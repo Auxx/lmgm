@@ -37,5 +37,6 @@ export const appProtocol = 'lmgm';
 export const appDomain = 'app';
 
 export const appPaths = {
-  thumbs: '/thumbs'
+  thumbs: '/thumbs',
+  raw: '/raw',
 };

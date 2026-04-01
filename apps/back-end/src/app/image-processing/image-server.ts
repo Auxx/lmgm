@@ -11,6 +11,9 @@ export const handleCommunication = async (request: GlobalRequest): Promise<Globa
   switch (parsed.pathname) {
     case appPaths.thumbs:
       return await thumb(parsed.searchParams);
+
+    case appPaths.raw:
+      return await raw(parsed.searchParams);
   }
 
   return notFound();
@@ -36,6 +39,22 @@ const thumb = async (params: URLSearchParams): Promise<GlobalResponse> => {
       ).toString()
     );
   } catch (_error) {
+    console.log(_error);
+    return notFound();
+  }
+};
+
+const raw = async (params: URLSearchParams): Promise<GlobalResponse> => {
+  const fileName = params.get('image');
+
+  if (fileName === null) {
+    return notFound();
+  }
+
+  try {
+    return net.fetch(url.pathToFileURL(fileName).toString());
+  } catch (_error) {
+    console.log(_error);
     return notFound();
   }
 };

@@ -1,0 +1,34 @@
+{
+  "name": "@hexmode/lm-ffmpeg",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/@hexmode/lm-ffmpeg/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk"
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/@hexmode/lm-ffmpeg",
+        "main": "libs/@hexmode/lm-ffmpeg/src/index.ts",
+        "tsConfig": "libs/@hexmode/lm-ffmpeg/tsconfig.lib.json",
+        "assets": ["libs/@hexmode/lm-ffmpeg/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -38,5 +38,5 @@ export const appDomain = 'app';
 
 export const appPaths = {
   thumbs: '/thumbs',
-  raw: '/raw',
+  raw: '/raw'
 };

@@ -30,4 +30,53 @@ describe('ImageProcessor', () => {
       }
     );
   });
+
+  describe('resize', () => {
+    it('should resize an image', async () => {
+      const fileName = 'avif-hdr-p3-01.avif';
+      const imageProcessor = new ImageProcessor(join(imageLocation, fileName));
+      await imageProcessor.resize({
+        width: 541,
+        height: 360,
+        fit: 'contain',
+        format: 'jpg',
+        fileName: 'c:/temp/xxx/resized.jpg',
+        quality: 0.9
+      });
+    });
+  });
+
+  describe('withQuality', () => {
+    it.each`
+    quality | crf
+    ${1}    | ${'0'}
+    ${0.99} | ${'1'}
+    ${0.98} | ${'2'}
+    ${0.5}  | ${'32'}
+    ${0.25} | ${'48'}
+    ${0}    | ${'63'}
+    `('should set AVIF quality $quality to $crf', ({ quality, crf }) => {
+      const fileName = 'avif-hdr-p3-01.avif';
+      const imageProcessor = new ImageProcessor(join(imageLocation, fileName));
+      const result = imageProcessor.withQuality('avif', quality);
+
+      expect(result).toEqual([ '-crf', crf ]);
+    });
+
+    it.each`
+    quality | crf
+    ${1}    | ${'1'}
+    ${0.9}  | ${'4'}
+    ${0.8}  | ${'7'}
+    ${0.5}  | ${'16'}
+    ${0.25} | ${'24'}
+    ${0}    | ${'31'}
+    `('should set JPEG quality $quality to $crf', ({ quality, crf }) => {
+      const fileName = 'avif-hdr-p3-01.avif';
+      const imageProcessor = new ImageProcessor(join(imageLocation, fileName));
+      const result = imageProcessor.withQuality('jpg', quality);
+
+      expect(result).toEqual([ '-qmin', '1', '-q:v', crf ]);
+    });
+  });
 });

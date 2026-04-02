@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { FfmpegResponseLine, ImageInfo, PixelFormatId } from '../types';
 import { CodecId, knownCodecs } from '../types/codecs';
+import { fitFlags, ResizeFit, ResizeOptions } from './image-processor.types';
 
 const prefix = /^( {2})*/g;
 
@@ -66,6 +67,19 @@ export class ImageProcessor {
     return info;
   };
 
+  readonly resize = async (options: ResizeOptions): Promise<boolean> => {
+    await this.exec(
+      ...this.withInput(),
+      ...this.withOverwrite(),
+      ...this.withScale(options.width, options.height, options.fit),
+      ...this.encodeAs(options.format),
+      ...this.withQuality(options.format, options.quality),
+      ...this.withOutput(options.fileName)
+    );
+
+    return true;
+  };
+
   private readonly makeTree = (buffer: string): FfmpegResponseLine[] => {
     const lines = buffer.split('\n');
     const tree: FfmpegResponseLine[] = [];
@@ -113,13 +127,18 @@ export class ImageProcessor {
   private readonly exec = async (...args: string[]): Promise<{
     stdout: string;
     stderr: string;
-  }> => this.execFileAsync(this.ffmpeg, args);
+  }> => {
+    console.log(`${this.ffmpeg} ${args.join(' ')}`);
+    return this.execFileAsync(this.ffmpeg, args);
+  };
+
+  private readonly withOverwrite = (): string[] => [ '-y' ];
 
   private readonly withInput = (): string[] => [ '-i', `${this.fileName}` ];
 
-  private readonly withScale = (width: number, height: number): string[] => [
+  private readonly withScale = (width: number, height: number, fit: ResizeFit): string[] => [
     '-vf',
-    `scale=${width}:${height}:force_original_aspect_ratio=decrease:flags=lanczos:param0=3`
+    `scale=${width}:${height}:${fitFlags[fit]}:flags=lanczos:param0=3`
   ];
 
   private readonly withPixelFormat = (pixelFormat: PixelFormatId): string[] => [ '-pix_fmt', pixelFormat ];
@@ -127,6 +146,20 @@ export class ImageProcessor {
   private readonly encodeAs = (codecId: CodecId): string[] => {
     const codec = knownCodecs[codecId];
     return codec.library !== undefined ? [ '-c:v', codec.library ] : [];
+  };
+
+  readonly withQuality = (codecId: CodecId, quality: number): string[] => {
+    const q = Math.max(0, Math.min(1, quality));
+
+    switch (codecId) {
+      case 'avif':
+        return [ '-crf', (63 - Math.floor(q * 63)).toString() ];
+
+      case 'jpg':
+        return [ '-qmin', '1', '-q:v', (31 - Math.floor(q * 30)).toString() ];
+    }
+
+    return [];
   };
 
   private readonly withOutput = (fileName: string): string[] => [ '-still-picture', '1', fileName ];
